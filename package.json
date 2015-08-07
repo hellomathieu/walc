@@ -1,0 +1,31 @@
+{
+  "name": "walc",
+  "version": "1.0.0",
+  "description": "Remove 'console' or 'alert' function in your scripts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hellomathieu/walc.git"
+  },
+  "keywords": [
+    "console",
+    "warning",
+    "log",
+    "alert",
+    "remove",
+    "delete",
+    "comment"
+  ],
+  "author": "hellomathieu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hellomathieu/walc/issues"
+  },
+  "homepage": "https://github.com/hellomathieu/walc#readme",
+  "dependencies": {
+    "globby": "^2.1.0"
+  }
+}
