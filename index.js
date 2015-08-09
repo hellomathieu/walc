@@ -83,18 +83,14 @@ var Walc = function (options) {
 Walc.prototype = {
 
   run: function() {
+    
     var walc   = this,
-        mainRegex   = walc.getParam('mainRegex'),
-        methods     = walc.getParam('methods'),
-        actions     = walc.getParam('actions'),
         files       = globby.sync( walc.getParam('pathSrc') ),
         comments    = false,
         file,
         segments,
         filename,
-        data,
-        currentAction,
-        is
+        data
 
     for (var i = 0, len = files.length; i < len; i++) {
       
@@ -108,38 +104,52 @@ Walc.prototype = {
       // read file
       data = fs.readFileSync(file, {encoding: 'utf8'})
 
-      // transform ')' to '&#40;' => cause to mainRegex match, try to fix it...
-      data = walc.brackets(data)
-      
-      // replace 'console' and 'alert' by comment or remove. Ignore if already comment
-      data = data.replace(mainRegex, function (match, startComments, $2, $3, $4, stringToAction, isAlert, isConsole, typeConsole, $9, brackets, endComments, $12, offset, string) {
-        
-        comments       = (startComments === '') ? false : true
-        if (comments) return startComments + stringToAction + endComments
-
-        is             = isConsole || isAlert
-        currentAction  = (typeof is === 'string' && actions.indexOf(methods[is]) >= 0) ? methods[is] : walc.getParam('defaultAction')
-
-        switch(currentAction) {
-          case 'remove' :
-            return '';
-            break;
-          case 'comment' :
-            return '/* ' + stringToAction + ' */';
-            break;
-          default:
-            return stringToAction
-            break;
-        }
-
-      })
-
-      // transform '&#40;' to ')' => cause to mainRegex match, try to fix it...
-      data = walc.brackets(data, true)
+      data = walc.process(data)
 
       // and write the new content to path dest
       fs.writeFileSync(walc.getParam('pathDest') + filename, data)
     }
+  },
+
+  process: function(data) {
+    
+    var walc        = this,
+        mainRegex   = walc.getParam('mainRegex'),
+        methods     = walc.getParam('methods'),
+        actions     = walc.getParam('actions'),
+        currentAction,
+        is
+
+    // transform ')' to '&#40;' => cause to mainRegex match, try to fix it...
+    data = walc.brackets(data)
+      
+    // replace 'console' and 'alert' by comment or remove. Ignore if already comment
+    data = data.replace(mainRegex, function (match, startComments, $2, $3, $4, stringToAction, isAlert, isConsole, typeConsole, $9, brackets, endComments, $12, offset, string) {
+      
+      comments       = (startComments === '') ? false : true
+      if (comments) return startComments + stringToAction + endComments
+
+      is             = isConsole || isAlert
+      currentAction  = (typeof is === 'string' && actions.indexOf(methods[is]) >= 0) ? methods[is] : walc.getParam('defaultAction')
+
+      switch(currentAction) {
+        case 'remove' :
+          return '';
+          break;
+        case 'comment' :
+          return '/* ' + stringToAction + ' */';
+          break;
+        default:
+          return stringToAction
+          break;
+      }
+
+    })
+
+    // transform '&#40;' to ')' => cause to mainRegex match, try to fix it...
+    data = walc.brackets(data, true)
+
+    return data
   },
 
   brackets: function(data, reverse) {
