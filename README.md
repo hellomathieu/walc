@@ -1,7 +1,7 @@
 # Walc
 Warning, Alert, Log, Console ect...
 
-Removes `console` or `alert` function in your scripts.
+Removes `console` or `alert` functions in your scripts.
 
 ## Install
 
@@ -15,7 +15,7 @@ $ npm install walc
 var walc = require('walk'),
     w    = new walc({
             path: './js/*.js', 
-            methods: {alert: 'remove', console:'comment'
+            methods: {alert: 'remove', console: 'comment'
           })
 w.run()
 ```
@@ -23,7 +23,7 @@ w.run()
 
 ## Options
 
-- `path` : String or Array. ex : `"path/to/directory/*.js"` or `"path/to/directory/script.js"` or `["path/to/directory/*.js"` or `"path/to/directory/script.js"]`
+- `path` : String or Array. ex : `"path/to/directory/*.js"` or `"path/to/directory/script.js"` or `["path/to/directory/*.js"`] or [`"path/to/directory/script.js"]`
 
 - `methods` : Object. `console` or `alert` for keys, and values has 3 possibilities : `remove`, `comment` or `ignore` (default). 
 
