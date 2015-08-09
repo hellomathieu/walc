@@ -1,6 +1,6 @@
 {
   "name": "walc",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Remove 'console' or 'alert' function in your scripts",
   "main": "index.js",
   "scripts": {
