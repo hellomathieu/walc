@@ -109,7 +109,7 @@ Walc.prototype = {
       data = fs.readFileSync(file, {encoding: 'utf8'})
 
       // transform ')' to '&#40;' => cause to mainRegex match, try to fix it...
-      data = walc.quotes(data)
+      data = walc.brackets(data)
       
       // replace 'console' and 'alert' by comment or remove. Ignore if already comment
       data = data.replace(mainRegex, function (match, startComments, $2, $3, $4, stringToAction, isAlert, isConsole, typeConsole, $9, brackets, endComments, $12, offset, string) {
@@ -135,14 +135,14 @@ Walc.prototype = {
       })
 
       // transform '&#40;' to ')' => cause to mainRegex match, try to fix it...
-      data = walc.quotes(data, true)
+      data = walc.brackets(data, true)
 
       // and write the new content to path dest
       fs.writeFileSync(walc.getParam('pathDest') + filename, data)
     }
   },
 
-  quotes: function(data, reverse) {
+  brackets: function(data, reverse) {
 
     var quotesRegex  = this.getParam('quotesRegex'),
         matchReplace = [')', '&#40;']
