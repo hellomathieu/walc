@@ -34,11 +34,6 @@ var Walc = function (options) {
     path = options
   }
 
-  if (path === null) {
-    console.log('Walc : `path` is not defined')
-    process.exit(0)
-  }
-
   /**
    * static params
    * reachable via `this.getParam(param)`
@@ -83,10 +78,17 @@ var Walc = function (options) {
 Walc.prototype = {
 
   run: function() {
+
+    var walc = this,
+        path = walc.getParam('pathSrc')
+
+    if (path === null) {
+      console.log('Walc : `path` is not defined')
+      process.exit(0)
+    }
     
-    var walc   = this,
-        files       = globby.sync( walc.getParam('pathSrc') ),
-        comments    = false,
+    var files    = globby.sync( path ),
+        comments = false,
         file,
         segments,
         filename,
@@ -113,11 +115,11 @@ Walc.prototype = {
 
   process: function(data) {
     
-    var walc        = this,
-        mainRegex   = walc.getParam('mainRegex'),
-        methods     = walc.getParam('methods'),
-        actions     = walc.getParam('actions'),
-        currentAction,
+    var walc          = this,
+        mainRegex     = walc.getParam('mainRegex'),
+        methods       = walc.getParam('methods'),
+        actions       = walc.getParam('actions'),
+        currentAction = null,
         is
 
     // transform ')' to '&#40;' => cause to mainRegex match, try to fix it...
