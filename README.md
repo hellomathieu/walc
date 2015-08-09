@@ -23,7 +23,7 @@ w.run()
 
 ## Options
 
-- `path` : String or Array. ex : `"path/to/directory/*.js"` or `"path/to/directory/script.js"` or `["path/to/directory/*.js"`] or [`"path/to/directory/script.js"]`
+- `path` : String or Array. ex : `"path/to/directory/*.js"` or `"path/to/directory/script.js"` or `["path/to/directory/*.js"]` or `["path/to/directory/script.js"]`
 
 - `methods` : Object. `console` or `alert` for keys, and values has 3 possibilities : `remove`, `comment` or `ignore` (default). 
 
