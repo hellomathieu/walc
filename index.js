@@ -9,6 +9,7 @@ var Walc = function (options) {
 
   // default values
   var path           = null,
+      dest           = 'dest/',
       actions        = ['remove', 'comment', 'ignore'],
       defaultAction  = 'ignore',
       methods        = {'console': defaultAction, 'alert': defaultAction},
@@ -19,6 +20,10 @@ var Walc = function (options) {
   // override default values if exists in options objects 
   if (typeof options === 'object') {
     path = (typeof options.path === 'string' || typeof options.path === 'object') ? options.path : path
+    dest = (typeof options.dest === 'string') ? options.dest : dest
+
+    if (dest.slice(-1) !== '/') 
+      dest += '/'
 
     if (typeof options.methods === 'object') {
 
@@ -42,7 +47,7 @@ var Walc = function (options) {
 
     'pathSrc': path,
 
-    'pathDest': 'dest/',
+    'pathDest': dest,
 
     'actions': actions,
 

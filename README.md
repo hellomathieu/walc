@@ -15,6 +15,7 @@ $ npm install walc
 var walc = require('walk'),
     w    = walc({
             path: './js/*.js', 
+            dest: './bin/',
             methods: {alert: 'remove', console: 'comment'
           })
 w.run()
