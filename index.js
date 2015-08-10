@@ -1,4 +1,5 @@
 var globby = require('globby'),
+    mkdirp = require('mkdirp'),
     fs     = require('fs')
 
 /** 
@@ -75,8 +76,10 @@ var Walc = function (options) {
   }
 
   // create destination directory if not exists
-  if (params.pathSrc !== null)
-    try{ fs.mkdirSync( params.pathDest ) } catch (err) {  }
+  if (params.pathSrc !== null) {
+    //try{ fs.mkdirSync( params.pathDest ) } catch (err) {  }
+    try{ mkdirp.sync(params.pathDest) } catch (err) {  }
+  }
 
 }
 
@@ -128,15 +131,13 @@ Walc.prototype = {
         currentAction = null,
         is
 
-    console.log(walc.getParam('pathSrc'))
-
     // transform ')' to '&#40;' => cause to mainRegex match, try to fix it...
     data = walc.brackets(data)
       
     // replace 'console' and 'alert' by comment or remove. Ignore if already comment
     data = data.replace(mainRegex, function (match, startComments, $2, $3, $4, stringToAction, isAlert, isConsole, typeConsole, $9, brackets, endComments, $12, offset, string) {
-      
-      if (startComments === '') return startComments + stringToAction + endComments
+
+      if (startComments !== '') return startComments + stringToAction + endComments
 
       is             = isConsole || isAlert
       currentAction  = (typeof is === 'string' && actions.indexOf(methods[is]) >= 0) ? methods[is] : walc.getParam('defaultAction')
@@ -152,6 +153,8 @@ Walc.prototype = {
           return stringToAction
           break;
       }
+
+
 
     })
 

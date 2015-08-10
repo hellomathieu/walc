@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/hellomathieu/walc#readme",
   "dependencies": {
-    "globby": "^2.1.0"
+    "globby": "^2.1.0",
+    "mkdirp": "^0.5.1"
   }
 }
