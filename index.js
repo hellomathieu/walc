@@ -182,4 +182,6 @@ Walc.prototype = {
  * Module exports
  *
  */
-module.exports = Walc
+module.exports = function(options) {
+  return new Walc(options)
+}
