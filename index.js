@@ -107,7 +107,8 @@ var Walc = function (options) {
   }
 
   // create destination directory if not exists
-  try{ fs.mkdirSync( params.pathDest ) } catch (err) {  }
+  if (params.pathSrc !== null)
+    try{ fs.mkdirSync( params.pathDest ) } catch (err) {  }
 
 }
 
