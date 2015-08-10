@@ -12,7 +12,7 @@ $ npm install walc
 ## Usage
 
 ```javascript
-var walc = require('walk'),
+var walc = require('walc'),
     w    = walc({
             path: './js/*.js', 
             dest: './bin/',
