@@ -13,7 +13,7 @@ $ npm install walc
 
 ```javascript
 var walc = require('walk'),
-    w    = new walc({
+    w    = walc({
             path: './js/*.js', 
             methods: {alert: 'remove', console: 'comment'
           })
