@@ -62,9 +62,9 @@ var Walc = function (options) {
     // method : action
     'methods': methods,
 
-    'quotesRegex': /((\"|\')(.+?)(\"|\'))/gi,
+    'quotesRegex': /((\"|\')(.*?)(\"|\'))/gi,
 
-    'mainRegex': /(((\/\/\s*)?(\/\*\s*)?)+?)(((console)\.([a-z]+)|(alert))\((.+?)\);?)(((\s*\*\/)?)+?)/gi,
+    'mainRegex': /(((\/\/\s*)?(\/\*\s*)?)+?)(((console)\.([a-z]+)|(alert))\((.+?)\)(;|,)?)(((\s*\*\/)?)+?)/gi,
 
     'files': []
 
